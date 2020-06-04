@@ -32,6 +32,9 @@ void Logger::process_cmd(char cmd) {
     else if(cmd == 'g') {
         g_cmd();
     }
+    else if(cmd == 't') {
+        t_cmd();
+    }
 }
 void Logger::a_cmd() {
     int entryID;
@@ -54,21 +57,34 @@ void Logger::p_cmd() const {
     }
 }
 void Logger::t_cmd() {
-    string ts;
-    cin >> ts;
+    string ts1, ts2;
+    getline(cin, ts1, '|');
+    cin >> ts2;
+    
+    clear_search_results();
+    long long int ts1_converted = ts_convert(ts1);
+    long long int ts2_converted = ts_convert(ts2);
+    
+    auto it = binary_search_lower(ts1_converted);
+    auto end = binary_search_upper(ts2_converted);
+    
+    cout << "Timestamp search: " << end - it << " entries found\n";
+    while(it != end) {
+        search_results.push_back(&(*it));
+        ++it;
+    }
     
 }
 void Logger::m_cmd() {
     string ts;
     cin >> ts;
+    
+    clear_search_results();
     long long int ts_converted = ts_convert(ts);
     auto it = binary_search_lower(ts_converted);
-    auto end = it;
-    //Get [begin, end) range
-    while(end->timestamp == ts_converted) {
-        ++end;
-    }
+    auto end = binary_search_upper(ts_converted);
     
+    cout << "Timestamp search: " << end - it << " entries found\n";
     while(it != end) {
         search_results.push_back(&(*it));
         ++it;
@@ -98,8 +114,15 @@ MasterIt Logger::binary_search_lower(long long int ts) const {
     return lower_bound(master.begin(), master.end(), ts, IDLess());
     
 }
+MasterIt Logger::binary_search_upper(long long int ts) const {
+    return upper_bound(master.begin(), master.end(), ts, IDLess());
+    
+}
 long long int Logger::ts_convert(string ts) const {
     ts.erase(remove(ts.begin(), ts.end(), ':'), ts.end());
     long long int ts_final = stoll(ts, nullptr, 10);
     return ts_final;
+}
+void Logger::clear_search_results() {
+    search_results.clear();
 }

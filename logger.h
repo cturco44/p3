@@ -68,6 +68,8 @@ private:
     std::string ts_convert_back(long long int ts) const;
     std::vector<const LogEntry>::iterator binary_search_lower(long long int ts) const;
     long long int ts_convert(std::string ts) const;
+        std::vector<const LogEntry>::iterator binary_search_upper(long long int ts) const;
+    void clear_search_results();
 };
 
 #endif /* logger_hpp */
