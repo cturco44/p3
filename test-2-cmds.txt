@@ -1,0 +1,12 @@
+g
+p
+c hello
+g
+k help*hate
+g
+k life-hate
+g
+c bro
+g
+q
+
