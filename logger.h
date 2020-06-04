@@ -84,6 +84,7 @@ public:
     void e_cmd();
     void l_cmd();
     void s_cmd();
+    void k_cmd();
     void initializer();
 private:
     std::unordered_map<std::string, std::vector<const LogEntry*>> c_hash;
@@ -99,8 +100,10 @@ private:
     void clear_search_results();
     void print_condensed_el() const;
     void unordered_set_helper(std::string::iterator start, std::string::iterator end, std::unordered_set<std::string> &set) const;
+        void vector_helper(std::string::iterator start, std::string::iterator end, std::vector<std::string> &set) const;
 
-    
+    void merger(std::vector<std::pair<std::vector<const LogEntry*>::iterator,
+                std::vector<const LogEntry*>::iterator>> &result) const;
 };
 
 #endif /* logger_hpp */

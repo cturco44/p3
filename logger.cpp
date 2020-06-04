@@ -16,6 +16,7 @@
 
 using namespace std;
 using MasterIt = vector<const LogEntry>::iterator;
+using VectorIt = vector<const LogEntry*>::iterator;
 
 void Logger::process_cmd(char cmd) {
     if(cmd == '#') {
@@ -57,6 +58,9 @@ void Logger::process_cmd(char cmd) {
     }
     else if(cmd == 's') {
         s_cmd();
+    }
+    else if(cmd == 'k') {
+        k_cmd();
     }
 }
 void Logger::s_cmd() {
@@ -180,6 +184,33 @@ void Logger::m_cmd() {
     
     
 }
+void Logger::k_cmd() {
+    clear_search_results();
+    string search;
+    getline(cin, search);
+    lowercase(search);
+    search.erase(0, 1);
+    
+    vector<string> set;
+    vector<pair<VectorIt, VectorIt>> all_results;
+    
+    vector_helper(search.begin(), search.end(), set);
+    for(auto set_it = set.begin(); set_it != set.end(); ++set_it) {
+        auto it = k_hash.find(*set_it);
+        if(it != k_hash.end()) {
+            all_results.emplace_back(pair<VectorIt, VectorIt>
+                                     (it->second.begin(), it->second.end()));
+        }
+    }
+    if(all_results.empty()) {
+        cout << "Keyword search: 0 entries found\n";
+        return;
+    }
+    merger(all_results);
+    copy(all_results[0].first, all_results[0].second, back_inserter(search_results));
+    
+    cout << "Keyword search: " << search_results.size() << " entries found\n";
+}
 void Logger::c_cmd() {
     clear_search_results();
     string search;
@@ -280,6 +311,32 @@ void Logger::unordered_set_helper(string::iterator start, string::iterator end,
         set.emplace(string(start, it));
     }
     unordered_set_helper(it, end, set);
+    
+}
+void Logger::vector_helper(string::iterator start, string::iterator end,
+                                  vector<string> &set) const {
+    if(start == end) {
+        return;
+    }
+    start = find_if(start, end, (int(*)(int))isalnum);
+    string::iterator it = find_if_not(start, end, (int(*)(int))isalnum);
+    if(start != it) {
+        set.emplace_back(string(start, it));
+    }
+     vector_helper(it, end, set);
+    
+}
+void Logger::merger(vector<pair<VectorIt, VectorIt>> &result) const {
+    
+    while (result.size() > 1) {
+        vector<const LogEntry*> v;
+        set_intersection(result[0].first, result[0].second, result[0].first,
+                         result[1].second, back_inserter(v), LogEntryPtrLess());
+        result.emplace_back(pair<VectorIt, VectorIt> (v.begin(), v.end()));
+        swap(result.front(), result.back());
+        result.pop_back();
+        result.pop_back();
+    }
     
 }
 void uppercase(string &s) {
