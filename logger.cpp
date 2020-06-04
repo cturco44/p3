@@ -276,7 +276,9 @@ void Logger::unordered_set_helper(string::iterator start, string::iterator end,
     }
     start = find_if(start, end, (int(*)(int))isalnum);
     string::iterator it = find_if_not(start, end, (int(*)(int))isalnum);
-    set.emplace(string(start, it));
+    if(start != it) {
+        set.emplace(string(start, it));
+    }
     unordered_set_helper(it, end, set);
     
 }
