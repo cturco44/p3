@@ -39,6 +39,38 @@ void Logger::process_cmd(char cmd) {
     else if(cmd == 'c') {
         c_cmd();
     }
+    else if(cmd == 'r') {
+        r_cmd();
+    }
+    else if(cmd == 'd') {
+        d_cmd();
+    }
+    else if(cmd == 'b') {
+        b_cmd();
+    }
+    else if(cmd == 'e') {
+        e_cmd();
+    }
+    else if(cmd == 'l') {
+        l_cmd();
+    }
+    else if(cmd == 's') {
+        s_cmd();
+    }
+}
+void Logger::s_cmd() {
+    cout << "excerpt list sorted\n";
+    if(excerpt_list.empty()) {
+        cout << "(previously empty)\n";
+        return;
+    }
+    cout << "previous ordering:\n";
+    print_condensed_el();
+    cout << "new ordering:\n";
+    sort(excerpt_list.begin(), excerpt_list.end(), LogEntryPtrLess());
+    print_condensed_el();
+    
+    
 }
 void Logger::a_cmd() {
     int entryID;
@@ -59,6 +91,58 @@ void Logger::p_cmd() const {
         << (*it)->message << "\n";
         ++index;
     }
+}
+void Logger::l_cmd() {
+    cout << "excerpt list cleared\n";
+    if(excerpt_list.empty()) {
+        cout << "(previously empty)\n";
+        return;
+    }
+    cout << "previous contents:\n";
+    print_condensed_el();
+    
+    excerpt_list.erase(excerpt_list.begin(), excerpt_list.end());
+    
+    
+    
+}
+void Logger::e_cmd() {
+    int index;
+    cin >> index;
+    if(index >= (int)excerpt_list.size()) {
+        return;
+    }
+    auto ptr = excerpt_list[index];
+    excerpt_list.erase(excerpt_list.begin() + index);
+    excerpt_list.push_back(ptr);
+    cout << "Moved excerpt list entry " << index << "\n";
+}
+void Logger::r_cmd() {
+    copy(search_results.begin(), search_results.end(), back_inserter(excerpt_list));
+    cout << search_results.end() - search_results.begin()
+    << " entries appended\n";
+}
+void Logger::d_cmd() {
+    int delete_pos;
+    cin >> delete_pos;
+    
+    if(delete_pos >= (int)excerpt_list.size()) {
+        return;
+    }
+    excerpt_list.erase(excerpt_list.begin() + delete_pos);
+    cout << "Deleted excerpt list entry " << delete_pos << "\n";
+}
+void Logger::b_cmd() {
+    int index;
+    cin >> index;
+    if(index >= (int)excerpt_list.size()) {
+        return;
+    }
+    auto ptr = excerpt_list[index];
+    excerpt_list.erase(excerpt_list.begin() + index);
+    excerpt_list.push_front(ptr);
+    cout << "Moved excerpt list entry " << index << "\n";
+    
 }
 void Logger::t_cmd() {
     string ts1, ts2;
@@ -127,6 +211,21 @@ string Logger::ts_convert_back(long long int ts) const {
     ts_converted.insert(2, ":");
     
     return ts_converted;
+}
+void Logger::print_condensed_el() const {
+    
+    cout << "0|" << (*excerpt_list.begin())->entryID << "|"
+    << ts_convert_back((*excerpt_list.begin())->timestamp)
+    << "|" << (*excerpt_list.begin())->category << "|"
+    << (*excerpt_list.begin())->message << "\n";
+    
+    cout << "...\n";
+    
+    cout << excerpt_list.size() - 1 << "|"
+    << (excerpt_list.back())->entryID << "|"
+    << ts_convert_back((excerpt_list.back())->timestamp)
+    << "|" << (excerpt_list.back())->category << "|"
+    << (excerpt_list.back())->message << "\n";
 }
 MasterIt Logger::binary_search_lower(long long int ts) const {
     return lower_bound(master.begin(), master.end(), ts, IDLess());

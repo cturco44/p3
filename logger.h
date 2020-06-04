@@ -50,6 +50,21 @@ struct LogEntryLess {
         return lhs.timestamp < rhs.timestamp;
     }
 };
+struct LogEntryPtrLess {
+    bool operator()(const LogEntry* lhs, const LogEntry* rhs) const {
+        if(lhs->timestamp == rhs->timestamp) {
+            std::string lhs_cat = lhs->category;
+            std::string rhs_cat = rhs->category;
+            lowercase(lhs_cat);
+            lowercase(rhs_cat);
+            if(lhs_cat == rhs_cat) {
+                return lhs->entryID < rhs->entryID;
+            }
+            return lhs_cat < rhs_cat;
+        }
+        return lhs->timestamp < rhs->timestamp;
+    }
+};
 class Logger {
 public:
     void push_master(long long int timestamp_in, std::string category_in, std::string message, int entryID) {
@@ -62,11 +77,17 @@ public:
     void m_cmd();
     void g_cmd() const;
     void c_cmd();
+    void r_cmd();
+    void d_cmd();
+    void b_cmd();
+    void e_cmd();
+    void l_cmd();
+    void s_cmd();
     void initializer();
 private:
     std::unordered_map<std::string, std::vector<const LogEntry*>> c_hash;
     std::unordered_map<std::string, std::vector<const LogEntry*>> k_hash;
-    std::deque<LogEntry*> excerpt_list;
+    std::deque<const LogEntry*> excerpt_list;
     std::vector<LogEntry> master;
     std::vector<const LogEntry*> search_results;
     
@@ -75,6 +96,7 @@ private:
     long long int ts_convert(std::string ts) const;
         std::vector<const LogEntry>::iterator binary_search_upper(long long int ts) const;
     void clear_search_results();
+    void print_condensed_el() const;
 
     
 };
