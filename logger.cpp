@@ -12,6 +12,7 @@
 #include <math.h>
 #include <algorithm>
 #include <cctype>
+#include <unordered_set>
 
 using namespace std;
 using MasterIt = vector<const LogEntry>::iterator;
@@ -69,8 +70,7 @@ void Logger::s_cmd() {
     cout << "new ordering:\n";
     sort(excerpt_list.begin(), excerpt_list.end(), LogEntryPtrLess());
     print_condensed_el();
-    
-    
+
 }
 void Logger::a_cmd() {
     int entryID;
@@ -252,7 +252,33 @@ void Logger::initializer() {
         if(!check.second) {
             (check.first)->second.push_back(&(*it));
         }
+        
+        unordered_set<string> set;
+        unordered_set_helper(cat.begin(), cat.end(), set);
+        string msg = it->message;
+        lowercase(msg);
+        unordered_set_helper(msg.begin(), msg.end(), set);
+        
+        for(auto j = set.begin(); j != set.end(); ++j) {
+            auto check = k_hash.emplace(*j, vector<const LogEntry*> {&(*it)});
+            if(!check.second) {
+                (check.first)->second.push_back(&(*it));
+            }
+        }
+        
     }
+    
+}
+void Logger::unordered_set_helper(string::iterator start, string::iterator end,
+                                  unordered_set<string> &set) const {
+    if(start == end) {
+        return;
+    }
+    start = find_if(start, end, (int(*)(int))isalnum);
+    string::iterator it = find_if_not(start, end, (int(*)(int))isalnum);
+    set.emplace(string(start, it));
+    unordered_set_helper(it, end, set);
+    
 }
 void uppercase(string &s) {
     transform(s.begin(), s.end(), s.begin(), ::toupper);

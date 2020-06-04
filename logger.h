@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <vector>
 #include <deque>
+#include <unordered_set>
 void uppercase(std::string &s);
 void lowercase(std::string &s);
 
@@ -97,6 +98,7 @@ private:
         std::vector<const LogEntry>::iterator binary_search_upper(long long int ts) const;
     void clear_search_results();
     void print_condensed_el() const;
+    void unordered_set_helper(std::string::iterator start, std::string::iterator end, std::unordered_set<std::string> &set) const;
 
     
 };
