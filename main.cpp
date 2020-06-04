@@ -58,6 +58,14 @@ int main(int argc, char * argv[]) {
     
     Logger main_log;
     read_in(argc, argv, main_log);
+    main_log.sort_master();
+    
+    char cmd;
+    do {
+        cout << "% ";
+        cin >> cmd;
+        main_log.process_cmd(cmd);
+    } while (cmd != 'q');
 
     return 0;
 }
