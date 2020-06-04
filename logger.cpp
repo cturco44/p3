@@ -11,6 +11,7 @@
 #include <string>
 #include <math.h>
 #include <algorithm>
+#include <cctype>
 
 using namespace std;
 using MasterIt = vector<const LogEntry>::iterator;
@@ -34,6 +35,9 @@ void Logger::process_cmd(char cmd) {
     }
     else if(cmd == 't') {
         t_cmd();
+    }
+    else if(cmd == 'c') {
+        c_cmd();
     }
 }
 void Logger::a_cmd() {
@@ -92,6 +96,20 @@ void Logger::m_cmd() {
     
     
 }
+void Logger::c_cmd() {
+    clear_search_results();
+    string search;
+    getline(cin, search);
+    //Convert to lowercase and delete space (first char because of getline)
+    lowercase(search);
+    search.erase(0, 1);
+    
+    auto it = c_hash.find(search);
+    if(it != c_hash.end()) {
+        copy(it->second.begin(), it->second.end(), back_inserter(search_results));
+    }
+    cout << "Category search: " << search_results.size() << " entries found\n";
+}
 void Logger::g_cmd() const {
     for(auto it = search_results.cbegin(); it != search_results.cend(); ++it) {
         cout << (*it)->entryID << "|" << ts_convert_back((*it)->timestamp)
@@ -125,4 +143,21 @@ long long int Logger::ts_convert(string ts) const {
 }
 void Logger::clear_search_results() {
     search_results.clear();
+}
+void Logger::initializer() {
+    std::sort(master.begin(), master.end(), LogEntryLess());
+    for(auto it = master.cbegin(); it != master.cend(); ++it) {
+        string cat = it->category;
+        lowercase(cat);
+        auto check = c_hash.emplace(cat, vector<const LogEntry*> {&(*it)});
+        if(!check.second) {
+            (check.first)->second.push_back(&(*it));
+        }
+    }
+}
+void uppercase(string &s) {
+    transform(s.begin(), s.end(), s.begin(), ::toupper);
+}
+void lowercase(string &s) {
+    transform(s.begin(), s.end(), s.begin(), ::tolower);
 }

@@ -58,7 +58,7 @@ int main(int argc, char * argv[]) {
     
     Logger main_log;
     read_in(argc, argv, main_log);
-    main_log.sort_master();
+    main_log.initializer();
     
     char cmd;
     do {
