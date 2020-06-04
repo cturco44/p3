@@ -7,9 +7,57 @@
 //
 
 #include <iostream>
+#include "xcode_redirect.hpp"
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include "logger.h"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+using namespace std;
+
+long long int ts_convert(string ts) {
+    ts.erase(remove(ts.begin(), ts.end(), ':'), ts.end());
+    long long int ts_final = stoll(ts, nullptr, 10);
+    return ts_final;
+}
+
+void read_in(int argc, char* argv[], Logger &main_log) {
+    string filename;
+    for(int i = 0; i < argc; ++i) {
+        string holder = string(argv[i]);
+        if(holder == "-h" || holder == "--help") {
+            cout << "Log filename is only command line argument\n";
+            exit(0);
+        }
+        else {
+            filename = holder;
+        }
+    }
+    
+    ifstream fin;
+    fin.open(filename);
+    if(!fin.is_open()) {
+        cerr << "Open Failed\n";
+        exit(1);
+    }
+    
+    int count = 0;
+    string ts, cat, msg;
+    while(getline(fin, ts, '|')) {
+        getline(fin, cat, '|');
+        getline(fin, msg);
+        main_log.push_master(ts_convert(ts), cat, msg, count);
+        ++count;
+    }
+
+    
+}
+int main(int argc, char * argv[]) {
+    std::ios_base::sync_with_stdio(false);
+    xcode_redirect(argc, argv);
+    
+    Logger main_log;
+    read_in(argc, argv, main_log);
+
     return 0;
 }
