@@ -309,8 +309,7 @@ void Logger::clear_search_results() {
 void Logger::initializer() {
     std::sort(master.begin(), master.end(), LogEntryLess());
     for(auto it = master.cbegin(); it != master.cend(); ++it) {
-        string cat = it->category;
-        lowercase(cat);
+        string cat = it->lc_category;
         auto check = c_hash.emplace(cat, vector<const LogEntry*> {&(*it)});
         if(!check.second) {
             (check.first)->second.push_back(&(*it));

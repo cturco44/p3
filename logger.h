@@ -21,11 +21,15 @@ void lowercase(std::string &s);
 struct LogEntry {
     long long int timestamp;
     std::string category;
+    std::string lc_category;
     std::string message;
     int entryID;
     
     LogEntry(long long int timestamp_in, std::string category_in, std::string message_in, int entryID_in) :
-    timestamp(timestamp_in), category(category_in), message(message_in), entryID(entryID_in) {}
+    timestamp(timestamp_in), category(category_in), message(message_in), entryID(entryID_in) {
+        lc_category = category;
+        lowercase(lc_category);
+    }
     
 };
 struct IDLess {
@@ -43,14 +47,10 @@ struct IDLess {
 struct LogEntryLess {
     bool operator()(const LogEntry &lhs, const LogEntry &rhs) const {
         if(lhs.timestamp == rhs.timestamp) {
-            std::string lhs_cat = lhs.category;
-            std::string rhs_cat = rhs.category;
-            lowercase(lhs_cat);
-            lowercase(rhs_cat);
-            if(lhs_cat == rhs_cat) {
+            if(lhs.lc_category == rhs.lc_category) {
                 return lhs.entryID < rhs.entryID;
             }
-            return lhs_cat < rhs_cat;
+            return lhs.lc_category < rhs.lc_category;
         }
         return lhs.timestamp < rhs.timestamp;
     }
@@ -58,10 +58,8 @@ struct LogEntryLess {
 struct LogEntryPtrLess {
     bool operator()(const LogEntry* lhs, const LogEntry* rhs) const {
         if(lhs->timestamp == rhs->timestamp) {
-            std::string lhs_cat = lhs->category;
-            std::string rhs_cat = rhs->category;
-            lowercase(lhs_cat);
-            lowercase(rhs_cat);
+            std::string lhs_cat = lhs->lc_category;
+            std::string rhs_cat = rhs->lc_category;
             if(lhs_cat == rhs_cat) {
                 return lhs->entryID < rhs->entryID;
             }
