@@ -15,7 +15,7 @@
 #include <unordered_set>
 
 using namespace std;
-using MasterIt = vector<const LogEntry>::iterator;
+
 using VectorPtr = const LogEntry*;
 
 auto Logger::binary_search_lower(long long int ts) const {
