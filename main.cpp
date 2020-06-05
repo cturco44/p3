@@ -49,6 +49,7 @@ void read_in(int argc, char* argv[], Logger &main_log) {
         main_log.push_master(ts_convert(ts), cat, msg, count);
         ++count;
     }
+    cout << count << " entries read\n";
 
     
 }

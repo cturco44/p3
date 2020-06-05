@@ -1,4 +1,4 @@
-//
+// Project Identifier: 01BD41C3BF016AD7E8B6F837DF18926EC3E83350
 //  logger.cpp
 //  p3
 //
@@ -88,13 +88,18 @@ void Logger::s_cmd() {
 void Logger::a_cmd() {
     int entryID;
     cin >> entryID;
+    if(entryID >= (int)master.size()) {
+        return;
+    }
     
     for(auto it = master.begin(); it != master.end(); ++it) {
         if(it->entryID == entryID) {
             excerpt_list.push_back(&(*it));
+            cout << "log entry " << entryID << " appended\n";
             return;
         }
     }
+    cout << "log entry " << entryID << "appended\n";
 }
 void Logger::p_cmd() const {
     size_t index = 0;
@@ -125,7 +130,7 @@ void Logger::e_cmd() {
     if(index >= (int)excerpt_list.size()) {
         return;
     }
-    auto ptr = excerpt_list[index];
+    auto ptr = excerpt_list[(unsigned long)index];
     excerpt_list.erase(excerpt_list.begin() + index);
     excerpt_list.push_back(ptr);
     cout << "Moved excerpt list entry " << index << "\n";
@@ -133,7 +138,7 @@ void Logger::e_cmd() {
 void Logger::r_cmd() {
     copy(search_results.begin(), search_results.end(), back_inserter(excerpt_list));
     cout << search_results.end() - search_results.begin()
-    << " entries appended\n";
+    << " log entries appended\n";
 }
 void Logger::d_cmd() {
     int delete_pos;
@@ -151,7 +156,7 @@ void Logger::b_cmd() {
     if(index >= (int)excerpt_list.size()) {
         return;
     }
-    auto ptr = excerpt_list[index];
+    auto ptr = excerpt_list[(unsigned long)index];
     excerpt_list.erase(excerpt_list.begin() + index);
     excerpt_list.push_front(ptr);
     cout << "Moved excerpt list entry " << index << "\n";
@@ -169,7 +174,7 @@ void Logger::t_cmd() {
     auto it = binary_search_lower(ts1_converted);
     auto end = binary_search_upper(ts2_converted);
     
-    cout << "Timestamp search: " << end - it << " entries found\n";
+    cout << "Timestamps search: " << end - it << " entries found\n";
     while(it != end) {
         search_results.push_back(&(*it));
         ++it;
