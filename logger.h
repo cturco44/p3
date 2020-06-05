@@ -102,8 +102,6 @@ private:
     void unordered_set_helper(std::string::iterator start, std::string::iterator end, std::unordered_set<std::string> &set) const;
         void vector_helper(std::string::iterator start, std::string::iterator end, std::vector<std::string> &set) const;
 
-    void merger(std::vector<std::pair<std::vector<const LogEntry*>::iterator,
-                std::vector<const LogEntry*>::iterator>> &result) const;
 };
 
 #endif /* logger_hpp */

@@ -16,7 +16,7 @@
 
 using namespace std;
 using MasterIt = vector<const LogEntry>::iterator;
-using VectorIt = vector<const LogEntry*>::iterator;
+using VectorPtr = const LogEntry*;
 
 void Logger::process_cmd(char cmd) {
     if(cmd == '#') {
@@ -192,23 +192,34 @@ void Logger::k_cmd() {
     search.erase(0, 1);
     
     vector<string> set;
-    vector<pair<VectorIt, VectorIt>> all_results;
+    vector<VectorPtr> saved;
+    vector<VectorPtr> holder;
     
     vector_helper(search.begin(), search.end(), set);
+    bool first = true;
     for(auto set_it = set.begin(); set_it != set.end(); ++set_it) {
         auto it = k_hash.find(*set_it);
         if(it != k_hash.end()) {
-            all_results.emplace_back(pair<VectorIt, VectorIt>
-                                     (it->second.begin(), it->second.end()));
+            if(first) {
+                copy(it->second.begin(), it->second.end(), back_inserter(saved));
+            }
+            else {
+                set_intersection(it->second.begin(), it->second.end(), saved.begin(), saved.end(), back_inserter(holder), LogEntryPtrLess());
+            }
+
         }
+        if(!first) {
+            holder.swap(saved);
+            holder.clear();
+        }
+        first = false;
+
     }
-    if(all_results.empty()) {
+    if(saved.empty()) {
         cout << "Keyword search: 0 entries found\n";
         return;
     }
-    merger(all_results);
-    copy(all_results[0].first, all_results[0].second, back_inserter(search_results));
-    
+    copy(saved.begin(), saved.end(), back_inserter(search_results));
     cout << "Keyword search: " << search_results.size() << " entries found\n";
 }
 void Logger::c_cmd() {
@@ -326,19 +337,7 @@ void Logger::vector_helper(string::iterator start, string::iterator end,
      vector_helper(it, end, set);
     
 }
-void Logger::merger(vector<pair<VectorIt, VectorIt>> &result) const {
-    
-    while (result.size() > 1) {
-        vector<const LogEntry*> v;
-        set_intersection(result[0].first, result[0].second, result[0].first,
-                         result[1].second, back_inserter(v), LogEntryPtrLess());
-        result.emplace_back(pair<VectorIt, VectorIt> (v.begin(), v.end()));
-        swap(result.front(), result.back());
-        result.pop_back();
-        result.pop_back();
-    }
-    
-}
+
 void uppercase(string &s) {
     transform(s.begin(), s.end(), s.begin(), ::toupper);
 }

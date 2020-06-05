@@ -288,7 +288,7 @@ help:
 # % g++ -MM *.cpp
 #
 # ADD YOUR OWN DEPENDENCIES HERE
-logman.o: main.cpp
+logman.o: main.cpp logger.cpp logger.h
 ######################
 # TODO (end) #
 ######################
