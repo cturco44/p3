@@ -88,7 +88,7 @@ void Logger::s_cmd() {
 void Logger::a_cmd() {
     int entryID;
     cin >> entryID;
-    if(entryID >= (int)master.size()) {
+    if(entryID >= (int)master.size() || entryID < 0) {
         return;
     }
     
@@ -127,7 +127,7 @@ void Logger::l_cmd() {
 void Logger::e_cmd() {
     int index;
     cin >> index;
-    if(index >= (int)excerpt_list.size()) {
+    if(index >= (int)excerpt_list.size() || index < 0) {
         return;
     }
     auto ptr = excerpt_list[(unsigned long)index];
@@ -137,6 +137,9 @@ void Logger::e_cmd() {
 }
 void Logger::r_cmd() {
     copy(search_results.begin(), search_results.end(), back_inserter(excerpt_list));
+    if(search_results.size() == 0) {
+        return;
+    }
     cout << search_results.end() - search_results.begin()
     << " log entries appended\n";
 }
@@ -144,7 +147,7 @@ void Logger::d_cmd() {
     int delete_pos;
     cin >> delete_pos;
     
-    if(delete_pos >= (int)excerpt_list.size()) {
+    if(delete_pos >= (int)excerpt_list.size() || delete_pos < 0) {
         return;
     }
     excerpt_list.erase(excerpt_list.begin() + delete_pos);
@@ -153,7 +156,7 @@ void Logger::d_cmd() {
 void Logger::b_cmd() {
     int index;
     cin >> index;
-    if(index >= (int)excerpt_list.size()) {
+    if(index >= (int)excerpt_list.size() || index < 0) {
         return;
     }
     auto ptr = excerpt_list[(unsigned long)index];
@@ -166,6 +169,9 @@ void Logger::t_cmd() {
     string ts1, ts2;
     getline(cin, ts1, '|');
     cin >> ts2;
+    if(ts1.size() != 14 || ts2.size() != 14) {
+        return;
+    }
     
     clear_search_results();
     long long int ts1_converted = ts_convert(ts1);
@@ -184,7 +190,9 @@ void Logger::t_cmd() {
 void Logger::m_cmd() {
     string ts;
     cin >> ts;
-    
+    if(ts.size() != 14) {
+        return;
+    }
     clear_search_results();
     long long int ts_converted = ts_convert(ts);
     auto it = binary_search_lower(ts_converted);

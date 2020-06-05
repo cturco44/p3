@@ -1,0 +1,20 @@
+t 00:00:00:00:00|17:00:00:00:00
+g
+m 12:11:20:12:12
+g
+c hip
+c hip hOp
+g
+k muSic
+g
+k music-AeRoSmith
+a 15
+a 4
+p
+r g
+d 5
+d 0
+b 1
+b 7
+p
+q
