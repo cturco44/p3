@@ -15,13 +15,12 @@ echo |
 echo |
 echo ============================ Spec Test ===================================
 echo -------------------------------------------------------------------------
-valgrind ./logman spec-test-log.txt < spec-test-cmds.txt
+valgrind ./logman_debug spec-test-log.txt < spec-test-cmds.txt
 echo -------------------------------------------------------------------------
 echo |
 echo |
 echo ============================ Sample All ===================================
 echo -------------------------------------------------------------------------
-valgrind ./logman sample-log.txt < sample-all-cmds.txt
+valgrind ./logman_debug sample-log.txt < sample-all-cmds.txt
 echo -------------------------------------------------------------------------
 make clean
-
