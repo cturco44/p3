@@ -98,9 +98,9 @@ private:
     std::vector<const LogEntry*> search_results;
     
     std::string ts_convert_back(long long int ts) const;
-    std::vector<const LogEntry>::iterator binary_search_lower(long long int ts) const;
+    auto binary_search_lower(long long int ts) const;
     long long int ts_convert(std::string ts) const;
-        std::vector<const LogEntry>::iterator binary_search_upper(long long int ts) const;
+    auto binary_search_upper(long long int ts) const;
     void clear_search_results();
     void print_condensed_el() const;
     void unordered_set_helper(std::string::iterator start, std::string::iterator end, std::unordered_set<std::string> &set) const;

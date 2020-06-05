@@ -18,6 +18,15 @@ using namespace std;
 using MasterIt = vector<const LogEntry>::iterator;
 using VectorPtr = const LogEntry*;
 
+auto Logger::binary_search_lower(long long int ts) const {
+    return lower_bound(master.begin(), master.end(), ts, IDLess());
+    
+}
+auto Logger::binary_search_upper(long long int ts) const {
+    return upper_bound(master.begin(), master.end(), ts, IDLess());
+    
+}
+
 void Logger::process_cmd(char cmd) {
     if(cmd == '#') {
         string comment;
@@ -269,14 +278,7 @@ void Logger::print_condensed_el() const {
     << "|" << (excerpt_list.back())->category << "|"
     << (excerpt_list.back())->message << "\n";
 }
-MasterIt Logger::binary_search_lower(long long int ts) const {
-    return lower_bound(master.begin(), master.end(), ts, IDLess());
-    
-}
-MasterIt Logger::binary_search_upper(long long int ts) const {
-    return upper_bound(master.begin(), master.end(), ts, IDLess());
-    
-}
+
 long long int Logger::ts_convert(string ts) const {
     ts.erase(remove(ts.begin(), ts.end(), ':'), ts.end());
     long long int ts_final = stoll(ts, nullptr, 10);
