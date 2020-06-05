@@ -136,10 +136,10 @@ void Logger::e_cmd() {
     cout << "Moved excerpt list entry " << index << "\n";
 }
 void Logger::r_cmd() {
-    copy(search_results.begin(), search_results.end(), back_inserter(excerpt_list));
-    if(search_results.size() == 0) {
+    if(!searched_yet) {
         return;
     }
+    copy(search_results.begin(), search_results.end(), back_inserter(excerpt_list));
     cout << search_results.end() - search_results.begin()
     << " log entries appended\n";
 }
@@ -173,7 +173,7 @@ void Logger::t_cmd() {
     if(ts1.length() != 14 || ts2.length() != 14) {
         return;
     }
-    
+    searched_yet = true;
     clear_search_results();
     long long int ts1_converted = ts_convert(ts1);
     long long int ts2_converted = ts_convert(ts2);
@@ -194,6 +194,7 @@ void Logger::m_cmd() {
     if(ts.size() != 14) {
         return;
     }
+    searched_yet = true;
     clear_search_results();
     long long int ts_converted = ts_convert(ts);
     auto it = binary_search_lower(ts_converted);
@@ -208,12 +209,13 @@ void Logger::m_cmd() {
     
 }
 void Logger::k_cmd() {
-    clear_search_results();
     string search;
     getline(cin, search);
     lowercase(search);
     search.erase(0, 1);
+    clear_search_results();
     
+    searched_yet = true;
     vector<string> set;
     vector<VectorPtr> saved;
     vector<VectorPtr> holder;
@@ -242,19 +244,22 @@ void Logger::k_cmd() {
         cout << "Keyword search: 0 entries found\n";
         return;
     }
+    
     copy(saved.begin(), saved.end(), back_inserter(search_results));
     cout << "Keyword search: " << search_results.size() << " entries found\n";
 }
 void Logger::c_cmd() {
-    clear_search_results();
     string search;
     getline(cin, search);
     //Convert to lowercase and delete space (first char because of getline)
     lowercase(search);
     search.erase(0, 1);
     
+    searched_yet = true;
+    clear_search_results();
     auto it = c_hash.find(search);
     if(it != c_hash.end()) {
+        
         copy(it->second.begin(), it->second.end(), back_inserter(search_results));
     }
     cout << "Category search: " << search_results.size() << " entries found\n";

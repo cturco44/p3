@@ -72,6 +72,9 @@ struct LogEntryPtrLess {
 };
 class Logger {
 public:
+    Logger() {
+        searched_yet = false;
+    }
     void push_master(long long int timestamp_in, std::string category_in, std::string message, int entryID) {
         master.emplace_back(timestamp_in, category_in, message, entryID);
     }
@@ -91,6 +94,7 @@ public:
     void k_cmd();
     void initializer();
 private:
+    bool searched_yet;
     std::unordered_map<std::string, std::vector<const LogEntry*>> c_hash;
     std::unordered_map<std::string, std::vector<const LogEntry*>> k_hash;
     std::deque<const LogEntry*> excerpt_list;

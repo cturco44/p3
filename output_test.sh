@@ -9,7 +9,7 @@
 make logman
 echo ============================ Test 1 =====================================
 echo -------------------------------------------------------------------------
-./logman test-1-log.txt < test-1-cmds.txt > testy.txt
+./logman test-3-log.txt < test-3-cmds.txt > testy.txt
 sdiff testy.txt test1correct.txt
 echo -------------------------------------------------------------------------
 echo |
