@@ -19,13 +19,5 @@ echo -------------------------------------------------------------------------
 ./logman_debug spec-test-log.txt < spec-test-cmds.txt > testy.txt
 sdiff testy.txt spec-test-out.txt
 echo -------------------------------------------------------------------------
-echo |
-echo |
-echo ============================ Sample All ===================================
-echo -------------------------------------------------------------------------
-./logman_debug sample-log.txt < sample-all-cmds.txt > testy.txt
-diff testy.txt sample-all-out.txt
-echo -------------------------------------------------------------------------
-make clean
 
 
