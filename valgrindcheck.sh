@@ -1,31 +1,27 @@
 #!/bin/bash
 
-#  output_test.sh
+#  valgrindcheck.sh
 #  p3
 #
 #  Created by Connor Turco on 6/5/20.
 #  Copyright © 2020 Connor Turco. All rights reserved.
 
-make logman
+make debug
 echo ============================ Test 1 =====================================
 echo -------------------------------------------------------------------------
-./logman test-1-log.txt < test-1-cmds.txt > testy.txt
-sdiff testy.txt test1correct.txt
+valgrind ./logman_debug test-1-log.txt < test-1-cmds.txt
 echo -------------------------------------------------------------------------
 echo |
 echo |
 echo ============================ Spec Test ===================================
 echo -------------------------------------------------------------------------
-./logman spec-test-log.txt < spec-test-cmds.txt > testy.txt
-sdiff testy.txt spec-test-out.txt
+valgrind ./logman spec-test-log.txt < spec-test-cmds.txt
 echo -------------------------------------------------------------------------
 echo |
 echo |
 echo ============================ Sample All ===================================
 echo -------------------------------------------------------------------------
-./logman sample-log.txt < sample-all-cmds.txt > testy.txt
-diff testy.txt sample-all-out.txt
+valgrind ./logman sample-log.txt < sample-all-cmds.txt
 echo -------------------------------------------------------------------------
 make clean
-
 
