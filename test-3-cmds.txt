@@ -1,20 +1,20 @@
-t 00:00:00:00:00|17:00:00:00:00
+# Test this bad boy
+t 00:00:00:00:00|00:00:00:02:00
 g
-m 12:11:20:12:12
+m 00:00:00:01:00
 g
-c hip
-c hip hOp
+t 00:00:00:00:00|01:00:00:00:00
 g
-k muSic
-g
-k music-AeRoSmith
-a 15
-a 4
+r
 p
-r g
-d 5
-d 0
-b 1
-b 7
+e 0
+p
+b 2
+p
+s
+p
+d 1
+p
+a 2
 p
 q
