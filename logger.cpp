@@ -169,7 +169,8 @@ void Logger::t_cmd() {
     string ts1, ts2;
     getline(cin, ts1, '|');
     cin >> ts2;
-    if(ts1.size() != 14 || ts2.size() != 14) {
+    ts1.erase(0,1);
+    if(ts1.length() != 14 || ts2.length() != 14) {
         return;
     }
     
