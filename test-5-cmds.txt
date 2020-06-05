@@ -1,0 +1,20 @@
+r
+t 12:11:20:12:123
+r
+k dskfjkdlfjdsfdssfdfdfd
+r
+t 12:11:20:12:12
+r
+e 0
+e 0
+s
+p
+l
+k blackpink
+g
+k kpop
+g
+c kpop
+g
+c kpop kpop
+g
