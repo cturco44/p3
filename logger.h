@@ -35,6 +35,10 @@ struct IDLess {
     bool operator()(const LogEntry &rhs, long long int lhs) const {
         return rhs.timestamp < lhs;
     }
+    bool operator()(const LogEntry &lhs, const LogEntry &rhs) const {
+        return rhs.timestamp < lhs.timestamp;
+    }
+    
 };
 struct LogEntryLess {
     bool operator()(const LogEntry &lhs, const LogEntry &rhs) const {
