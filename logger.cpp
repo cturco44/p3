@@ -81,7 +81,7 @@ void Logger::s_cmd() {
     cout << "previous ordering:\n";
     print_condensed_el();
     cout << "new ordering:\n";
-    sort(excerpt_list.begin(), excerpt_list.end(), LogEntryPtrLess());
+    sort(excerpt_list.begin(), excerpt_list.end());
     print_condensed_el();
 
 }
@@ -92,9 +92,9 @@ void Logger::a_cmd() {
         return;
     }
     
-    for(auto it = master.begin(); it != master.end(); ++it) {
-        if(it->entryID == entryID) {
-            excerpt_list.push_back(&(*it));
+    for(unsigned int i = 0; i < (unsigned int)master.size(); ++i) {
+        if(master[i].entryID == entryID) {
+            excerpt_list.push_back(i);
             cout << "log entry " << entryID << " appended\n";
             return;
         }
@@ -102,12 +102,12 @@ void Logger::a_cmd() {
     cout << "log entry " << entryID << "appended\n";
 }
 void Logger::p_cmd() const {
-    size_t index = 0;
-    for(auto it = excerpt_list.cbegin(); it != excerpt_list.cend(); ++it) {
-        cout << index << "|" << (*it)->entryID << "|"
-        << ts_convert_back((*it)->timestamp) << "|" << (*it)->category << "|"
-        << (*it)->message << "\n";
-        ++index;
+    
+    for(unsigned int i = 0; i < (unsigned int)excerpt_list.size(); ++i) {
+        unsigned int x = excerpt_list[i];
+        cout << i << "|" << master[x].entryID << "|"
+        << ts_convert_back(master[x].timestamp) << "|" << master[x].category << "|"
+        << master[x].message << "\n";
     }
 }
 void Logger::l_cmd() {
@@ -130,7 +130,7 @@ void Logger::e_cmd() {
     if(index >= (int)excerpt_list.size() || index < 0) {
         return;
     }
-    auto ptr = excerpt_list[(unsigned long)index];
+    unsigned int ptr = excerpt_list[(unsigned long)index];
     excerpt_list.erase(excerpt_list.begin() + index);
     excerpt_list.push_back(ptr);
     cout << "Moved excerpt list entry " << index << "\n";
@@ -139,9 +139,11 @@ void Logger::r_cmd() {
     if(!searched_yet) {
         return;
     }
-    copy(search_results.begin(), search_results.end(), back_inserter(excerpt_list));
-    cout << search_results.end() - search_results.begin()
-    << " log entries appended\n";
+    for(auto it = search_results.begin(); it != search_results.end(); ++it) {
+        unsigned int index = (unsigned int)(&(*(*it)) - &master[0]);
+        excerpt_list.push_back(index);
+    }
+    cout << search_results.size() << " log entries appended\n";
 }
 void Logger::d_cmd() {
     int delete_pos;
@@ -159,11 +161,11 @@ void Logger::b_cmd() {
     if(index >= (int)excerpt_list.size() || index < 0) {
         return;
     }
-    auto ptr = excerpt_list[(unsigned long)index];
+    unsigned int ptr = excerpt_list[(unsigned long)index];
     excerpt_list.erase(excerpt_list.begin() + index);
     excerpt_list.push_front(ptr);
     cout << "Moved excerpt list entry " << index << "\n";
-    
+
 }
 void Logger::t_cmd() {
     string ts1, ts2;
@@ -283,19 +285,16 @@ string Logger::ts_convert_back(long long int ts) const {
     return ts_converted;
 }
 void Logger::print_condensed_el() const {
-    
-    cout << "0|" << (*excerpt_list.begin())->entryID << "|"
-    << ts_convert_back((*excerpt_list.begin())->timestamp)
-    << "|" << (*excerpt_list.begin())->category << "|"
-    << (*excerpt_list.begin())->message << "\n";
-    
+    const LogEntry* begin = &master[excerpt_list[0]];
+    cout << "0|" << begin->entryID << "|" << ts_convert_back(begin->timestamp)
+    << "|" << begin->category << "|" << begin->message << "\n";
+
     cout << "...\n";
-    
+
+    const LogEntry* end = &master[excerpt_list.back()];
     cout << excerpt_list.size() - 1 << "|"
-    << (excerpt_list.back())->entryID << "|"
-    << ts_convert_back((excerpt_list.back())->timestamp)
-    << "|" << (excerpt_list.back())->category << "|"
-    << (excerpt_list.back())->message << "\n";
+    << end->entryID << "|" << ts_convert_back(end->timestamp)
+    << "|" << end->category << "|" << end->message << "\n";
 }
 
 long long int Logger::ts_convert(string ts) const {

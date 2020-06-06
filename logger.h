@@ -95,7 +95,7 @@ private:
     bool searched_yet;
     std::unordered_map<std::string, std::vector<const LogEntry*>> c_hash;
     std::unordered_map<std::string, std::vector<const LogEntry*>> k_hash;
-    std::deque<const LogEntry*> excerpt_list;
+    std::deque<unsigned int> excerpt_list;
     std::vector<LogEntry> master;
     std::vector<const LogEntry*> search_results;
     
