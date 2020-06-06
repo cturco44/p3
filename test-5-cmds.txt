@@ -1,9 +1,7 @@
 r
-t 12:11:20:12:123
-r
 k dskfjkdlfjdsfdssfdfdfd
 r
-t 12:11:20:12:12
+m 12:11:20:12:12
 r
 e 0
 e 0
@@ -18,3 +16,4 @@ c kpop
 g
 c kpop kpop
 g
+q
