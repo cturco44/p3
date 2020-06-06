@@ -92,14 +92,8 @@ void Logger::a_cmd() {
         return;
     }
     
-    for(unsigned int i = 0; i < (unsigned int)master.size(); ++i) {
-        if(master[i].entryID == entryID) {
-            excerpt_list.push_back(i);
-            cout << "log entry " << entryID << " appended\n";
-            return;
-        }
-    }
-    cout << "log entry " << entryID << "appended\n";
+    excerpt_list.push_back(id_holder[(size_t)entryID]);
+    cout << "log entry " << entryID << " appended\n";
 }
 void Logger::p_cmd() const {
     
@@ -326,6 +320,10 @@ void Logger::initializer() {
                 (check.first)->second.push_back(&(*it));
             }
         }
+        //For a command
+        unsigned int index = (unsigned int)(&(*it) - &master[0]);
+        id_holder.resize(master.size());
+        id_holder[(size_t)it->entryID] = index;
         
     }
     

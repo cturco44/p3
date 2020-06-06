@@ -98,6 +98,7 @@ private:
     std::deque<unsigned int> excerpt_list;
     std::vector<LogEntry> master;
     std::vector<const LogEntry*> search_results;
+    std::vector<unsigned int> id_holder;
     
     std::string ts_convert_back(long long int ts) const;
     auto binary_search_lower(long long int ts) const;
