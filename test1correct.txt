@@ -1,33 +1,50 @@
-9 entries read
-% % Keyword search: 0 entries found
-% 0 log entries appended
-% Timestamp search: 4 entries found
+4 entries read
+% % Timestamps search: 3 entries found
+% 2|00:00:00:00:12|hello|crap on a hate life
+0|00:00:00:00:61|Bro|freshman good food hello sick corona depressed
+1|00:00:00:01:00|Hello|help i hate my life
+% Timestamp search: 1 entries found
+% 1|00:00:00:01:00|Hello|help i hate my life
+% Timestamps search: 4 entries found
+% 2|00:00:00:00:12|hello|crap on a hate life
+0|00:00:00:00:61|Bro|freshman good food hello sick corona depressed
+1|00:00:00:01:00|Hello|help i hate my life
+3|00:15:00:00:72|hello| hate life
 % 4 log entries appended
+% 0|2|00:00:00:00:12|hello|crap on a hate life
+1|0|00:00:00:00:61|Bro|freshman good food hello sick corona depressed
+2|1|00:00:00:01:00|Hello|help i hate my life
+3|3|00:15:00:00:72|hello| hate life
 % Moved excerpt list entry 0
-% Moved excerpt list entry 0
+% 0|0|00:00:00:00:61|Bro|freshman good food hello sick corona depressed
+1|1|00:00:00:01:00|Hello|help i hate my life
+2|3|00:15:00:00:72|hello| hate life
+3|2|00:00:00:00:12|hello|crap on a hate life
+% Moved excerpt list entry 2
+% 0|3|00:15:00:00:72|hello| hate life
+1|0|00:00:00:00:61|Bro|freshman good food hello sick corona depressed
+2|1|00:00:00:01:00|Hello|help i hate my life
+3|2|00:00:00:00:12|hello|crap on a hate life
 % excerpt list sorted
 previous ordering:
-0|1|12:11:20:12:12|Rock|Ariana grade rihanna gaga katy perry
+0|3|00:15:00:00:72|hello| hate life
 ...
-3|0|12:11:20:12:12|Rock|Aerosmith music elton beatles
+3|2|00:00:00:00:12|hello|crap on a hate life
 new ordering:
-0|3|12:11:20:12:12|EDM|EDM Diplo
+0|2|00:00:00:00:12|hello|crap on a hate life
 ...
-3|2|12:11:20:12:12|Rock|-dhjfd *Luke-Bryan
-% 0|3|12:11:20:12:12|EDM|EDM Diplo
-1|0|12:11:20:12:12|Rock|Aerosmith music elton beatles
-2|1|12:11:20:12:12|Rock|Ariana grade rihanna gaga katy perry
-3|2|12:11:20:12:12|Rock|-dhjfd *Luke-Bryan
-% excerpt list cleared
-previous contents:
-0|3|12:11:20:12:12|EDM|EDM Diplo
-...
-3|2|12:11:20:12:12|Rock|-dhjfd *Luke-Bryan
-% Keyword search: 1 entries found
-% 4|06:02:11:20:08|KPop KPOP|Blackpink blackpink catcy like pop
-% Keyword search: 1 entries found
-% 4|06:02:11:20:08|KPop KPOP|Blackpink blackpink catcy like pop
-% Category search: 0 entries found
-% % Category search: 1 entries found
-% 4|06:02:11:20:08|KPop KPOP|Blackpink blackpink catcy like pop
-%
+3|3|00:15:00:00:72|hello| hate life
+% 0|2|00:00:00:00:12|hello|crap on a hate life
+1|0|00:00:00:00:61|Bro|freshman good food hello sick corona depressed
+2|1|00:00:00:01:00|Hello|help i hate my life
+3|3|00:15:00:00:72|hello| hate life
+% Deleted excerpt list entry 1
+% 0|2|00:00:00:00:12|hello|crap on a hate life
+1|1|00:00:00:01:00|Hello|help i hate my life
+2|3|00:15:00:00:72|hello| hate life
+% log entry 2 appended
+% 0|2|00:00:00:00:12|hello|crap on a hate life
+1|1|00:00:00:01:00|Hello|help i hate my life
+2|3|00:15:00:00:72|hello| hate life
+3|2|00:00:00:00:12|hello|crap on a hate life
+% 

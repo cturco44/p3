@@ -1,20 +1,15 @@
-# Test this bad boy
-t 00:00:00:00:00|00:00:00:02:00
-g
-m 00:00:00:01:00
-g
-t 00:00:00:00:00|01:00:00:00:00
-g
 r
-p
-e 0
-p
-b 2
-p
-s
-p
-d 1
-p
-a 2
-p
+k djkfdj;fdjkfkkda;fdk;
+r
+l
+k luke Bryan
+g
+k ariana ariana
+g
+k music
+g
+k bad romance
+g
+k bad romance full
+g
 q

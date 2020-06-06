@@ -1,20 +1,19 @@
-t 00:00:00:00:00|17:00:00:00:00
-g
-m 12:11:20:12:12
-g
-c hip
-c hip hOp
-g
-k muSic
-g
-k music-AeRoSmith
-a 15
-a 4
-p
 r
-d 5
-d 0
-b 1
-b 7
+k dskfjkdlfjdsfdssfdfdfd
+r
+m 12:11:20:12:12
+r
+e 0
+e 0
+s
 p
+l
+k blackpink
+g
+k kpop
+g
+c kpop
+g
+c kpop kpop
+g
 q
