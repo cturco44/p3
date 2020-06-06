@@ -18,6 +18,7 @@
 void uppercase(std::string &s);
 void lowercase(std::string &s);
 
+enum LastSearch{k,c,other};
 struct LogEntry {
     long long int timestamp;
     std::string category;
@@ -72,6 +73,7 @@ class Logger {
 public:
     Logger() {
         searched_yet = false;
+        last_search = other;
     }
     void push_master(long long int timestamp_in, std::string category_in, std::string message, int entryID) {
         master.emplace_back(timestamp_in, category_in, message, entryID);
@@ -92,13 +94,17 @@ public:
     void k_cmd();
     void initializer();
 private:
-    bool searched_yet;
+    
     std::unordered_map<std::string, std::vector<const LogEntry*>> c_hash;
     std::unordered_map<std::string, std::vector<const LogEntry*>> k_hash;
     std::deque<unsigned int> excerpt_list;
     std::vector<LogEntry> master;
     std::vector<const LogEntry*> search_results;
     std::vector<unsigned int> id_holder;
+    std::vector<std::vector<LogEntry>::const_iterator> search_results_2;
+    std::vector<std::vector<const LogEntry*>::const_iterator> search_results_c;
+    LastSearch last_search;
+    bool searched_yet;
     
     std::string ts_convert_back(long long int ts) const;
     auto binary_search_lower(long long int ts) const;

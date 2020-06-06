@@ -1,0 +1,27 @@
+9 entries read
+% Timestamps search: 9 entries found
+% 5|01:07:08:12:00|Hip Hop|Kendrick studio eminem
+6|04:25:21:54:21|The Blues|i dont know wtf are the -blues
+4|06:02:11:20:08|KPop|Blackpink catcy like pop
+7|09:29:23:41:20|Genres are cool|its britany bitch
+2|12:11:20:12:12|Country|-dhjfd *Luke-Bryan
+0|12:11:20:12:12|Rock|Aerosmith music elton beatles
+3|12:14:15:23:12|EDM|Diplo
+1|12:15:20:56:23|Pop|Ariana grade rihanna gaga katy perry
+8|12:15:20:56:50|music|calling bad romance full combo finish
+% Timestamp search: 2 entries found
+% 2|12:11:20:12:12|Country|-dhjfd *Luke-Bryan
+0|12:11:20:12:12|Rock|Aerosmith music elton beatles
+% Category search: 0 entries found
+% Category search: 1 entries found
+% 5|01:07:08:12:00|Hip Hop|Kendrick studio eminem
+% Keyword search: 2 entries found
+% 0|12:11:20:12:12|Rock|Aerosmith music elton beatles
+8|12:15:20:56:50|music|calling bad romance full combo finish
+% Keyword search: 1 entries found
+% % log entry 4 appended
+% 0|4|06:02:11:20:08|KPop|Blackpink catcy like pop
+% 1 log entries appended
+% % Deleted excerpt list entry 0
+% % % 0|0|12:11:20:12:12|Rock|Aerosmith music elton beatles
+%
